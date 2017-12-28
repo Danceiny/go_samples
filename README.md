@@ -1,3 +1,12 @@
+# Demos of Go by Danceiny
+学习Go。从Beego的demo开始~
+
+# Demos
+## [shorturl_with_gin](shorturl_with_gin/README.md)
+使用gin框架，来实现短网址服务。
+
+
+>下面是源Beego samples项目的文档
 # Beego samples
 
 [中文文档](README_ZH.md)
