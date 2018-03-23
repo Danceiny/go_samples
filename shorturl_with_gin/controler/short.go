@@ -21,6 +21,7 @@ type ShortResult struct {
 	UrlShort string
 	UrlLong  string
 }
+
 func GetMD5(lurl string) string {
 	h := md5.New()
 	salt1 := "salt4shorturl"
@@ -42,18 +43,16 @@ func ShortenControler(l string)(result ShortResult){
 		println(result.UrlShort)
 		err := urlcache.Put(urlmd5, result.UrlShort, 0)
 		if err != nil {
-			//beego.Info(err)
+			panic(err)
 		}
 		err = urlcache.Put(result.UrlShort, l, 0)
 		if err != nil {
-			//beego.Info(err)
+			panic(err)
 		}
 	}
-
-
-
 	return
 }
+
 
 func Generate() (tiny string) {
 	globalnum++

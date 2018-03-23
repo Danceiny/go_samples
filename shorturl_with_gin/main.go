@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"samples/shorturl_with_gin/controler"
 	"fmt"
+	"github.com/gin-gonic/gin/json"
 )
 
 
@@ -13,7 +14,9 @@ func main() {
 		c.String(200, "pong")
 	})
 
-	//defer println("dead panic")
+	defer r.Handle("GET", "/api/v1/shorten", func(c *gin.Context) {
+		c.JSON(200, "panic")
+	})
 	r.GET("/api/v1/shorten", func(c *gin.Context) {
 		long_url := c.Query("long_url")
 		if long_url == "" {
@@ -24,8 +27,14 @@ func main() {
 		println(long_url)
 		fmt.Print(res)
 
-		c.JSON(200, gin.H{"short_url": res.UrlShort,
-								"long_url": res.UrlLong})
+		//c.JSON(200, gin.H{"short_url": res.UrlShort,
+		//						"long_url": res.UrlLong})
+
+		v, e := json.Marshal(res)
+		if e != nil {
+			println(v);
+		}
+		c.JSON(200, res)
 	})
 	r.Run()
 }
